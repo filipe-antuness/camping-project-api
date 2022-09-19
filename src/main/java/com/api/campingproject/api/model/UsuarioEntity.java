@@ -53,4 +53,15 @@ public class UsuarioEntity {
     @ManyToMany(mappedBy = "inscritos")
     @Column(name = "eventos")
     private List<EventosEntity> eventos;
+
+    public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.nivelAcesso = 1;
+    }
 }
