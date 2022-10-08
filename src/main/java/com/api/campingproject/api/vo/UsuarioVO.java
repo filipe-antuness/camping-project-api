@@ -1,6 +1,5 @@
 package com.api.campingproject.api.vo;
 
-import com.api.campingproject.api.model.EnderecoEntity;
 import com.api.campingproject.api.model.EventosEntity;
 import com.api.campingproject.api.model.UsuarioEntity;
 import lombok.Data;
@@ -21,8 +20,13 @@ public class UsuarioVO {
     private String senha;
     private String telefone;
     private Integer nivelAcesso;
-    private List<EnderecoEntity> enderecos;
     private List<EventosEntity> eventos;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String rua;
+    private String numero;
+    private String bairro;
 
     public UsuarioVO () {}
 
@@ -36,8 +40,13 @@ public class UsuarioVO {
         this.senha = usuarioEntity.getSenha();
         this.telefone = usuarioEntity.getTelefone();
         this.nivelAcesso = usuarioEntity.getNivelAcesso();
-        this.enderecos = usuarioEntity.getEndereco();
         this.eventos = usuarioEntity.getEventos();
+        this.cep = usuarioEntity.getCep();
+        this.cidade = usuarioEntity.getCidade();
+        this.estado = usuarioEntity.getEstado();
+        this.rua = usuarioEntity.getRua();
+        this.numero = usuarioEntity.getNumero();
+        this.bairro = usuarioEntity.getBairro();
     }
 
     public static List<UsuarioVO> converterListadeUsuarios (List<UsuarioEntity> usuarios){

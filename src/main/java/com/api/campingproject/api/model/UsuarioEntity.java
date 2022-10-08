@@ -43,10 +43,6 @@ public class UsuarioEntity {
     @Column(name = "telefone")
     private String telefone;
 
-    @ManyToMany
-    @JoinColumn(name = "fk_endereco")
-    private List<EnderecoEntity> endereco;
-
     @Column(name = "nivel_acesso")
     private Integer nivelAcesso;
 
@@ -54,7 +50,26 @@ public class UsuarioEntity {
     @Column(name = "eventos")
     private List<EventosEntity> eventos;
 
-    public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone) {
+    @Column(name = "cep")
+    private String cep;
+
+    @Column(name = "cidade")
+    private String cidade;
+
+    @Column(name = "estado")
+    private String estado;
+
+    @Column(name = "rua")
+    private String rua;
+
+    @Column(name = "numero")
+    private String numero;
+
+    @Column(name = "bairro")
+    private String bairro;
+
+    public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone,
+    String cep, String cidade, String estado, String rua, String numero, String bairro) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -63,5 +78,11 @@ public class UsuarioEntity {
         this.senha = senha;
         this.telefone = telefone;
         this.nivelAcesso = 1;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
     }
 }

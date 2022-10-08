@@ -1,6 +1,6 @@
 package com.api.campingproject.api.controller;
 
-import com.api.campingproject.api.vo.form.UsuarioForm;
+import com.api.campingproject.core.service.form.UsuarioForm;
 import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.api.campingproject.core.service;
 
 import com.api.campingproject.api.model.UsuarioEntity;
-import com.api.campingproject.api.vo.form.UsuarioForm;
+import com.api.campingproject.core.service.form.UsuarioForm;
 import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +62,12 @@ public class UsuarioService {
             usuarioEntityOptional.get().setDataNascimento(usuarioForm.getDataNascimento());
             usuarioEntityOptional.get().setSenha(usuarioForm.getSenha());
             usuarioEntityOptional.get().setTelefone(usuarioForm.getTelefone());
+            usuarioEntityOptional.get().setBairro(usuarioForm.getBairro());
+            usuarioEntityOptional.get().setCep(usuarioForm.getCep());
+            usuarioEntityOptional.get().setCidade(usuarioForm.getCidade());
+            usuarioEntityOptional.get().setEstado(usuarioForm.getEstado());
+            usuarioEntityOptional.get().setRua(usuarioForm.getRua());
+            usuarioEntityOptional.get().setNumero(usuarioForm.getNumero());
 
             usuarioRepository.save(usuarioEntityOptional.get());
 
