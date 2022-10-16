@@ -29,13 +29,12 @@ public class UsuarioController {
         return usuarioService.buscaUsuarioPorId(id);
     }
 
-    @PreAuthorize("hasRole('0')")
     @GetMapping
     public ResponseEntity<List<UsuarioVO>> Lista(){
         return usuarioService.Listar();
     }
 
-    @PreAuthorize("hasRole('0')")
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar (@PathVariable Integer id){
         return usuarioService.deletarUsuario(id);

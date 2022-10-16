@@ -27,9 +27,9 @@ public class UsuarioService {
     public ResponseEntity cadastrar (UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder) {
         UsuarioEntity usuarioEntity =  usuarioForm.converter();
 
-        UsuarioEntity usuarioExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
+        Optional<UsuarioEntity> usuarioExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
 
-        if(usuarioExistente != null){
+        if(usuarioExistente.isPresent()){
             throw new Error("Esse usuário já existe!");
         }
 
