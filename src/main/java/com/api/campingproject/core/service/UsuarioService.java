@@ -6,6 +6,7 @@ import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,8 +20,20 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    private BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     public ResponseEntity cadastrar (UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder) {
         UsuarioEntity usuarioEntity =  usuarioForm.converter();
+
+        UsuarioEntity usuarioExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
+
+        if(usuarioExistente != null){
+            throw new Error("Esse usuário já existe!");
+        }
+
+        usuarioEntity.setSenha(passwordEncoder().encode(usuarioEntity.getSenha()));
         usuarioRepository.save(usuarioEntity);
         URI uri = uriComponentsBuilder.path("/usuarios/{id}").buildAndExpand(usuarioEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(new UsuarioForm(usuarioEntity));

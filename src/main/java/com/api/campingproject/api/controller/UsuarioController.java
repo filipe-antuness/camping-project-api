@@ -5,6 +5,7 @@ import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,11 +29,13 @@ public class UsuarioController {
         return usuarioService.buscaUsuarioPorId(id);
     }
 
+    @PreAuthorize("hasRole('0')")
     @GetMapping
     public ResponseEntity<List<UsuarioVO>> Lista(){
         return usuarioService.Listar();
     }
 
+    @PreAuthorize("hasRole('0')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar (@PathVariable Integer id){
         return usuarioService.deletarUsuario(id);
