@@ -7,9 +7,14 @@ import com.api.campingproject.core.service.form.EventosForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +27,7 @@ public class EventosService {
     public ResponseEntity cadastrar (EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder) {
         EventosEntity eventosEntity =  eventosForm.converter();
         eventosRepository.save(eventosEntity);
+
         URI uri = uriComponentsBuilder.path("/eventos/{id}").buildAndExpand(eventosEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(new EventosForm(eventosEntity));
     }

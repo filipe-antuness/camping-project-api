@@ -7,20 +7,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController()
 @RequestMapping("/eventos")
 public class EventosController {
 
+    private static String caminhoImagens = "C:\\Users\\Filipe Antunes\\Documents\\GitHub\\camping-project-api\\imagens\\";
+    private String imagem = "";
+
     @Autowired
     EventosService eventosService;
 
-    @PreAuthorize("hasRole('0')")
+    @PostMapping("/imagem")
+    public void salvarImagem(@RequestParam("file") MultipartFile arquivo){
+
+        try{
+            if(!arquivo.isEmpty()){
+                byte[] bytes = arquivo.getBytes();
+                Path caminho = Paths.get(caminhoImagens+arquivo.getOriginalFilename());
+                Files.write(caminho, bytes);
+
+                this.imagem = arquivo.getOriginalFilename();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<EventosForm> cadastrar(@RequestBody EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<EventosForm> cadastrar(@RequestBody EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder) {
+        eventosForm.setCaminhoImagem(this.imagem);
         return eventosService.cadastrar(eventosForm, uriComponentsBuilder);
     }
 
@@ -34,13 +58,11 @@ public class EventosController {
         return eventosService.Listar();
     }
 
-    @PreAuthorize("hasRole('0')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar (@PathVariable Integer id){
         return eventosService.deletarEvento(id);
     }
 
-    @PreAuthorize("hasRole('0')")
     @PutMapping("/{id}")
     public ResponseEntity<EventosForm> atualizar (@RequestBody EventosForm eventosForm, @PathVariable Integer id){
         return eventosService.atualizarEvento(eventosForm, id);
