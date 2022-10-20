@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +27,7 @@ public class EventosController {
     @Autowired
     EventosService eventosService;
 
-    @PostMapping("/imagem")
+    @PostMapping("/salvarImagem")
     public void salvarImagem(@RequestParam("file") MultipartFile arquivo){
 
         try{
@@ -40,6 +41,17 @@ public class EventosController {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/recuperarImagem/{imagem}")
+    @ResponseBody
+    public byte[] recuperarImagem(@PathVariable("imagem") String imagem) throws IOException {
+        System.out.println(imagem);
+        File imagemArquivo = new File(caminhoImagens+imagem);
+        if(imagem!=null || imagem.trim().length()>0) {
+            return Files.readAllBytes(imagemArquivo.toPath());
+        }
+        return null;
     }
 
     @PostMapping
