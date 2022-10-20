@@ -80,4 +80,9 @@ public class EventosController {
         return eventosService.atualizarEvento(eventosForm, id);
     }
 
+    @PutMapping("/inscricao/evento/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<EventosForm> inscricaoEvento (@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return eventosService.inscricaoEvento(idEvento, idUsuario);
+    }
+
 }

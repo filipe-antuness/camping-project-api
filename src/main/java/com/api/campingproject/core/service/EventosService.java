@@ -1,8 +1,10 @@
 package com.api.campingproject.core.service;
 
 import com.api.campingproject.api.model.EventosEntity;
+import com.api.campingproject.api.model.UsuarioEntity;
 import com.api.campingproject.api.vo.EventosVO;
 import com.api.campingproject.core.repository.EventosRepository;
+import com.api.campingproject.core.repository.UsuarioRepository;
 import com.api.campingproject.core.service.form.EventosForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class EventosService {
 
     @Autowired
     EventosRepository eventosRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     public ResponseEntity cadastrar (EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder) {
         EventosEntity eventosEntity =  eventosForm.converter();
@@ -70,6 +74,25 @@ public class EventosService {
             eventosEntityOptional.get().setIdadeMinima(eventosForm.getIdadeMinima());
             eventosEntityOptional.get().setCaminhoImagem(eventosForm.getCaminhoImagem());
             eventosEntityOptional.get().setInscritos(eventosForm.getInscritos());
+
+            eventosRepository.save(eventosEntityOptional.get());
+
+            return ResponseEntity.ok(new EventosForm(eventosEntityOptional.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity inscricaoEvento(Integer idEvento, Integer idUsuario) {
+        Optional<EventosEntity> eventosEntityOptional = eventosRepository.findById(idEvento);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);
+
+        if(usuario.get().getEventos().contains(eventosEntityOptional.get())){
+
+            return ResponseEntity.notFound().build();
+
+        }else if(eventosEntityOptional.isPresent() && usuario.isPresent()){
+
+            eventosEntityOptional.get().adiciona(usuario.get());
 
             eventosRepository.save(eventosEntityOptional.get());
 
