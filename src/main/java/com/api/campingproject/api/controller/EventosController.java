@@ -57,6 +57,7 @@ public class EventosController {
     @PostMapping
     public ResponseEntity<EventosForm> cadastrar(@RequestBody EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder) {
         eventosForm.setCaminhoImagem(this.imagem);
+        this.imagem = "";
         return eventosService.cadastrar(eventosForm, uriComponentsBuilder);
     }
 
