@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/eventos")
 public class EventosController {
 
-    private static String caminhoImagens = "C:\\Users\\Filipe Antunes\\Documents\\GitHub\\camping-project-api\\imagens\\";
+    private static String caminhoImagens = "C:\\Users\\Marcelo\\Documents\\TCC\\camping-project-api\\camping-project-api\\imagens\\";
     private String imagem = "";
 
     @Autowired
