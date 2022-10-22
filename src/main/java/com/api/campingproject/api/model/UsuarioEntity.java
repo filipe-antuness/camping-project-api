@@ -1,5 +1,6 @@
 package com.api.campingproject.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,6 +47,7 @@ public class UsuarioEntity {
     @Column(name = "nivel_acesso")
     private Integer nivelAcesso;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "inscritos")
     @Column(name = "eventos")
     private List<EventosEntity> eventos;

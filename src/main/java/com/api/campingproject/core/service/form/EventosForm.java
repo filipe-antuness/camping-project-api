@@ -23,6 +23,10 @@ public class EventosForm {
 
     public EventosForm(){}
 
+    public EventosForm(EventosEntity eventosEntity, UsuarioEntity usuario){
+        this.inscritos.add(usuario);
+    }
+
     public EventosForm(EventosEntity eventosEntity){
         this.id = eventosEntity.getId();
         this.titulo = eventosEntity.getTitulo();
@@ -35,7 +39,6 @@ public class EventosForm {
         this.caminhoImagem = eventosEntity.getCaminhoImagem();
         this.inscritos = eventosEntity.getInscritos();
     }
-
     public EventosEntity converter() {
         return new EventosEntity(id,titulo,dataAbertura,dataEncerramento,local,descricao,taxaInscricao,idadeMinima,caminhoImagem,inscritos);
     }

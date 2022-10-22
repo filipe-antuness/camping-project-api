@@ -1,6 +1,7 @@
 package com.api.campingproject.api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,7 +46,12 @@ public class EventosEntity {
     @Column(name = "caminho_imagem")
     private String caminhoImagem;
 
+    @JsonIgnore
     @ManyToMany
     @JoinColumn(name = "fk_inscritos")
     private List<UsuarioEntity> inscritos;
+
+    public void adiciona(UsuarioEntity usuario){
+        this.inscritos.add(usuario);
+    }
 }

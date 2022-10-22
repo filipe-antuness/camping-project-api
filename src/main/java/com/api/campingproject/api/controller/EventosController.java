@@ -57,6 +57,7 @@ public class EventosController {
     @PostMapping
     public ResponseEntity<EventosForm> cadastrar(@RequestBody EventosForm eventosForm, UriComponentsBuilder uriComponentsBuilder) {
         eventosForm.setCaminhoImagem(this.imagem);
+        this.imagem = "";
         return eventosService.cadastrar(eventosForm, uriComponentsBuilder);
     }
 
@@ -78,6 +79,11 @@ public class EventosController {
     @PutMapping("/{id}")
     public ResponseEntity<EventosForm> atualizar (@RequestBody EventosForm eventosForm, @PathVariable Integer id){
         return eventosService.atualizarEvento(eventosForm, id);
+    }
+
+    @PutMapping("/inscricao/evento/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<EventosForm> inscricaoEvento (@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return eventosService.inscricaoEvento(idEvento, idUsuario);
     }
 
 }
