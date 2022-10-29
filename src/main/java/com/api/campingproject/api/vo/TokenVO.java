@@ -6,10 +6,10 @@ import lombok.Getter;
 public class TokenVO {
 
     private String token;
-    private String bearer;
+    private UsuarioLogadoVO usuario;
 
-    public TokenVO(String token, String bearer) {
+    public TokenVO(String token, UsuarioLogadoVO usuario) {
         this.token = token;
-        this.bearer = bearer;
+        this.usuario = usuario;
     }
 }
