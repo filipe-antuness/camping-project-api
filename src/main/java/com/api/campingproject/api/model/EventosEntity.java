@@ -1,6 +1,7 @@
 package com.api.campingproject.api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class EventosEntity {
     @Column(name = "titulo")
     private String titulo;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_abertura")
     private Date dataAbertura;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_encerramento")
     private Date dataEncerramento;
 

@@ -2,6 +2,7 @@ package com.api.campingproject.api.vo;
 
 import com.api.campingproject.api.model.EventosEntity;
 import com.api.campingproject.api.model.UsuarioEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ public class UsuarioVO {
     private String nome;
     private String sobrenome;
     private String email;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
     private String cpf;
     private String senha;
