@@ -100,4 +100,24 @@ public class EventosService {
         }
         return ResponseEntity.notFound().build();
     }
+
+    public ResponseEntity<EventosForm> removerInscricaoEvento(Integer idEvento, Integer idUsuario) {
+        Optional<EventosEntity> eventosEntityOptional = eventosRepository.findById(idEvento);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);
+
+        if(usuario.get().getEventos().contains(eventosEntityOptional.get())){
+
+            eventosEntityOptional.get().remove(usuario.get());
+
+            eventosRepository.save(eventosEntityOptional.get());
+
+            return ResponseEntity.ok(new EventosForm(eventosEntityOptional.get()));
+
+        }else if(eventosEntityOptional.isPresent() && usuario.isPresent()){
+
+            return ResponseEntity.notFound().build();
+
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

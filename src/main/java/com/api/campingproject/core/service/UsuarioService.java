@@ -27,6 +27,8 @@ public class UsuarioService {
     public ResponseEntity cadastrar (UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder) {
         UsuarioEntity usuarioEntity =  usuarioForm.converter();
 
+        List<UsuarioEntity> primeiroUsuario = usuarioRepository.findAll();
+
         Optional<UsuarioEntity> usuarioExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
 
         if(usuarioExistente.isPresent()){
@@ -34,6 +36,29 @@ public class UsuarioService {
         }
 
         usuarioEntity.setSenha(passwordEncoder().encode(usuarioEntity.getSenha()));
+
+        if(primeiroUsuario.isEmpty()){
+            usuarioEntity.setNivelAcesso(0);
+        }else {
+            usuarioEntity.setNivelAcesso(1);
+        }
+
+        usuarioRepository.save(usuarioEntity);
+        URI uri = uriComponentsBuilder.path("/usuarios/{id}").buildAndExpand(usuarioEntity.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UsuarioForm(usuarioEntity));
+    }
+
+    public ResponseEntity cadastrarAdm (UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder) {
+        UsuarioEntity usuarioEntity =  usuarioForm.converter();
+
+        Optional<UsuarioEntity> usuarioExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
+
+        if(usuarioExistente.isPresent()){
+            throw new Error("Esse usuário já existe!");
+        }
+
+        usuarioEntity.setSenha(passwordEncoder().encode(usuarioEntity.getSenha()));
+        usuarioEntity.setNivelAcesso(0);
         usuarioRepository.save(usuarioEntity);
         URI uri = uriComponentsBuilder.path("/usuarios/{id}").buildAndExpand(usuarioEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(new UsuarioForm(usuarioEntity));

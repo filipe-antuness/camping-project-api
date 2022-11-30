@@ -73,7 +73,7 @@ public class UsuarioEntity {
     private String bairro;
 
     public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone,
-    String cep, String cidade, String estado, String rua, String numero, String bairro) {
+    String cep, String cidade, String estado, String rua, String numero, String bairro, Integer nivelAcesso) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -81,7 +81,7 @@ public class UsuarioEntity {
         this.cpf = cpf;
         this.senha = senha;
         this.telefone = telefone;
-        this.nivelAcesso = 1;
+        this.nivelAcesso = nivelAcesso;
         this.cep = cep;
         this.cidade = cidade;
         this.estado = estado;

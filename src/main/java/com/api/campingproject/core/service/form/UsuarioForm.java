@@ -23,8 +23,10 @@ public class UsuarioForm {
     private String numero;
     private String bairro;
 
+    private Integer nivelAcesso;
+
     public UsuarioEntity converter() {
-        return new UsuarioEntity(nome, sobrenome, email, dataNascimento, cpf, senha, telefone, cep, cidade, estado, rua, numero, bairro);
+        return new UsuarioEntity(nome, sobrenome, email, dataNascimento, cpf, senha, telefone, cep, cidade, estado, rua, numero, bairro, nivelAcesso);
     }
 
     public UsuarioForm(){}
@@ -43,5 +45,6 @@ public class UsuarioForm {
         this.rua = usuarioEntity.getRua();
         this.numero = usuarioEntity.getNumero();
         this.bairro = usuarioEntity.getBairro();
+        this.nivelAcesso = usuarioEntity.getNivelAcesso();
     }
 }

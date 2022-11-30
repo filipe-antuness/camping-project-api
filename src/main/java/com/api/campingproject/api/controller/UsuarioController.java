@@ -24,6 +24,11 @@ public class UsuarioController {
         return usuarioService.cadastrar(usuarioForm, uriComponentsBuilder);
     }
 
+    @PostMapping("/cadastrarAdm")
+    public ResponseEntity<UsuarioForm> cadastrarAdm(@RequestBody UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder){
+        return usuarioService.cadastrarAdm(usuarioForm, uriComponentsBuilder);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioVO> buscarUsuarioPordId(@PathVariable Integer id){
         return usuarioService.buscaUsuarioPorId(id);

@@ -57,4 +57,8 @@ public class EventosEntity {
     public void adiciona(UsuarioEntity usuario){
         this.inscritos.add(usuario);
     }
+
+    public void remove(UsuarioEntity usuario){
+        this.inscritos.remove(usuario);
+    }
 }

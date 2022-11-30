@@ -5,7 +5,6 @@ import com.api.campingproject.core.service.EventosService;
 import com.api.campingproject.core.service.form.EventosForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -84,6 +83,11 @@ public class EventosController {
     @PutMapping("/inscricao/evento/{idEvento}/usuario/{idUsuario}")
     public ResponseEntity<EventosForm> inscricaoEvento (@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
         return eventosService.inscricaoEvento(idEvento, idUsuario);
+    }
+
+    @PutMapping("/removerInscricao/evento/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<EventosForm> removerInscricaoEvento (@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return eventosService.removerInscricaoEvento(idEvento, idUsuario);
     }
 
 }
