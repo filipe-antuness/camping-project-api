@@ -1,6 +1,7 @@
 package com.api.campingproject.api.controller;
 
 import com.api.campingproject.api.vo.EventosVO;
+import com.api.campingproject.core.repository.EventosRepository;
 import com.api.campingproject.core.service.EventosService;
 import com.api.campingproject.core.service.form.EventosForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class EventosController {
 
     @Autowired
     EventosService eventosService;
+
+    @Autowired
+    EventosRepository eventosRepository;
 
     @PostMapping("/salvarImagem")
     public void salvarImagem(@RequestParam("file") MultipartFile arquivo){
@@ -77,7 +81,13 @@ public class EventosController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EventosForm> atualizar (@RequestBody EventosForm eventosForm, @PathVariable Integer id){
-        return eventosService.atualizarEvento(eventosForm, id);
+        if(eventosRepository.findAllByCaminhoImagem(eventosForm.getCaminhoImagem()).isPresent()){
+            return eventosService.atualizarEvento(eventosForm, id);
+        }else {
+            eventosForm.setCaminhoImagem(this.imagem);
+            this.imagem = "";
+            return eventosService.atualizarEvento(eventosForm, id);
+        }
     }
 
     @PutMapping("/inscricao/evento/{idEvento}/usuario/{idUsuario}")
