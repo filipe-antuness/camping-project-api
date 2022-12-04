@@ -73,7 +73,6 @@ public class EventosService {
             eventosEntityOptional.get().setTaxaInscricao(eventosForm.getTaxaInscricao());
             eventosEntityOptional.get().setIdadeMinima(eventosForm.getIdadeMinima());
             eventosEntityOptional.get().setCaminhoImagem(eventosForm.getCaminhoImagem());
-            eventosEntityOptional.get().setInscritos(eventosForm.getInscritos());
 
             eventosRepository.save(eventosEntityOptional.get());
 

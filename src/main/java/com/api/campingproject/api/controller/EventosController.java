@@ -81,7 +81,7 @@ public class EventosController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EventosForm> atualizar (@RequestBody EventosForm eventosForm, @PathVariable Integer id){
-        if(eventosRepository.findAllByCaminhoImagem(eventosForm.getCaminhoImagem()).isPresent()){
+        if(this.imagem.equals("")){
             return eventosService.atualizarEvento(eventosForm, id);
         }else {
             eventosForm.setCaminhoImagem(this.imagem);
