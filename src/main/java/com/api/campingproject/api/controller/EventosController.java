@@ -100,4 +100,9 @@ public class EventosController {
         return eventosService.removerInscricaoEvento(idEvento, idUsuario);
     }
 
+    @PutMapping("/pagamento/evento/{idEvento}/usuario/{idUsuario}")
+    public ResponseEntity<EventosForm> confirmarPagamento (@PathVariable Integer idEvento, @PathVariable Integer idUsuario){
+        return eventosService.confirmarPagamento(idEvento, idUsuario);
+    }
+
 }

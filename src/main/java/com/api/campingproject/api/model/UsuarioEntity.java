@@ -72,6 +72,9 @@ public class UsuarioEntity {
     @Column(name = "bairro")
     private String bairro;
 
+    @Column(name = "pagamento")
+    private Boolean pagamento;
+
     public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone,
     String cep, String cidade, String estado, String rua, String numero, String bairro, Integer nivelAcesso) {
         this.nome = nome;
@@ -88,5 +91,6 @@ public class UsuarioEntity {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
+        this.pagamento = false;
     }
 }

@@ -104,7 +104,7 @@ public class EventosService {
         Optional<EventosEntity> eventosEntityOptional = eventosRepository.findById(idEvento);
         Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);
 
-        if(usuario.get().getEventos().contains(eventosEntityOptional.get())){
+        if(eventosEntityOptional.get().getInscritos().contains(usuario.get())){
 
             eventosEntityOptional.get().remove(usuario.get());
 
@@ -118,5 +118,24 @@ public class EventosService {
 
         }
         return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<EventosForm> confirmarPagamento(Integer idEvento, Integer idUsuario) {
+        Optional<EventosEntity> eventos = eventosRepository.findById(idEvento);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);
+
+        if(eventos.get().getInscritos().contains(usuario.get())){
+
+            if(!usuario.get().getPagamento() || usuario.get().getPagamento() == null){
+                usuario.get().setPagamento(true);
+            }else{
+                usuario.get().setPagamento(false);
+            }
+            usuarioRepository.save(usuario.get());
+
+            return ResponseEntity.ok(new EventosForm(eventos.get()));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

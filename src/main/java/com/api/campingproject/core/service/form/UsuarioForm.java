@@ -22,7 +22,6 @@ public class UsuarioForm {
     private String rua;
     private String numero;
     private String bairro;
-
     private Integer nivelAcesso;
 
     public UsuarioEntity converter() {

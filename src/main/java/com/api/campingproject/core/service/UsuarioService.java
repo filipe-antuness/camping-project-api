@@ -106,6 +106,7 @@ public class UsuarioService {
             usuarioEntityOptional.get().setEstado(usuarioForm.getEstado());
             usuarioEntityOptional.get().setRua(usuarioForm.getRua());
             usuarioEntityOptional.get().setNumero(usuarioForm.getNumero());
+            usuarioEntityOptional.get().setPagamento(usuarioEntityOptional.get().getPagamento());
 
             usuarioRepository.save(usuarioEntityOptional.get());
 

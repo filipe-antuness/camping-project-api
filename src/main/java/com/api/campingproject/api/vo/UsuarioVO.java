@@ -29,6 +29,7 @@ public class UsuarioVO {
     private String rua;
     private String numero;
     private String bairro;
+    private Boolean pagamento;
 
     public UsuarioVO () {}
 
@@ -49,6 +50,7 @@ public class UsuarioVO {
         this.rua = usuarioEntity.getRua();
         this.numero = usuarioEntity.getNumero();
         this.bairro = usuarioEntity.getBairro();
+        this.pagamento = usuarioEntity.getPagamento();
     }
 
     public static List<UsuarioVO> converterListadeUsuarios (List<UsuarioEntity> usuarios){
