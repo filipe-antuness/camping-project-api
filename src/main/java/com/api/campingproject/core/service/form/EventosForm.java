@@ -36,7 +36,6 @@ public class EventosForm {
         this.descricao = eventosEntity.getDescricao();
         this.taxaInscricao = eventosEntity.getTaxaInscricao();
         this.idadeMinima = eventosEntity.getIdadeMinima();
-        this.caminhoImagem = eventosEntity.getCaminhoImagem();
         this.inscritos = eventosEntity.getInscritos();
     }
     public EventosEntity converter() {

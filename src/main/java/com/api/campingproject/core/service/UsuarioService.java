@@ -1,6 +1,7 @@
 package com.api.campingproject.core.service;
 
 import com.api.campingproject.api.model.UsuarioEntity;
+import com.api.campingproject.core.service.form.LoginForm;
 import com.api.campingproject.core.service.form.UsuarioForm;
 import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.repository.UsuarioRepository;
@@ -111,6 +112,18 @@ public class UsuarioService {
             usuarioRepository.save(usuarioEntityOptional.get());
 
             return ResponseEntity.ok(new UsuarioForm(usuarioEntityOptional.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity recuperarSenha(LoginForm loginForm) {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByEmail(loginForm.getEmail());
+
+        if(usuario.isPresent()){
+
+            usuario.get().setSenha(passwordEncoder().encode(loginForm.getSenha()));
+            usuarioRepository.save(usuario.get());
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }

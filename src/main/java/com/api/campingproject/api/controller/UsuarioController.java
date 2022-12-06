@@ -1,5 +1,8 @@
 package com.api.campingproject.api.controller;
 
+import com.api.campingproject.core.service.EnviaEmailService;
+import com.api.campingproject.core.service.form.EmailForm;
+import com.api.campingproject.core.service.form.LoginForm;
 import com.api.campingproject.core.service.form.UsuarioForm;
 import com.api.campingproject.api.vo.UsuarioVO;
 import com.api.campingproject.core.service.UsuarioService;
@@ -18,6 +21,8 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+    @Autowired
+    EnviaEmailService emailService;
 
     @PostMapping
     public ResponseEntity<UsuarioForm> cadastrar(@RequestBody UsuarioForm usuarioForm, UriComponentsBuilder uriComponentsBuilder){
@@ -48,6 +53,16 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioForm> atualizar (@RequestBody UsuarioForm usuarioForm, @PathVariable Integer id){
         return usuarioService.atualizarUsuario(usuarioForm, id);
+    }
+
+    @PostMapping("/enviarEmail")
+    public ResponseEntity<?> enviarEmail(@RequestBody EmailForm emailForm){
+        return emailService.enviar(emailForm);
+    }
+
+    @PutMapping("/recuperarSenha")
+    public ResponseEntity<?> recuperarSenha(@RequestBody LoginForm loginForm){
+        return usuarioService.recuperarSenha(loginForm);
     }
 
 }

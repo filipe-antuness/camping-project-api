@@ -72,7 +72,11 @@ public class EventosService {
             eventosEntityOptional.get().setDescricao(eventosForm.getDescricao());
             eventosEntityOptional.get().setTaxaInscricao(eventosForm.getTaxaInscricao());
             eventosEntityOptional.get().setIdadeMinima(eventosForm.getIdadeMinima());
-            eventosEntityOptional.get().setCaminhoImagem(eventosForm.getCaminhoImagem());
+            if(eventosForm.getCaminhoImagem() == null || eventosForm.getCaminhoImagem().equals("") || eventosForm.getCaminhoImagem().isEmpty()) {
+                eventosEntityOptional.get().setCaminhoImagem(eventosEntityOptional.get().getCaminhoImagem());
+            }else{
+                eventosEntityOptional.get().setCaminhoImagem(eventosForm.getCaminhoImagem());
+            }
 
             eventosRepository.save(eventosEntityOptional.get());
 
