@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 
@@ -56,7 +57,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/enviarEmail")
-    public ResponseEntity<?> enviarEmail(@RequestBody EmailForm emailForm){
+    public ResponseEntity<?> enviarEmail(@RequestBody EmailForm emailForm) throws MessagingException {
         return emailService.enviar(emailForm);
     }
 

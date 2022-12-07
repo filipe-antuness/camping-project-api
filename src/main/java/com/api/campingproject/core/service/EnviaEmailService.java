@@ -5,7 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 @Slf4j
@@ -18,16 +22,19 @@ public class EnviaEmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public ResponseEntity<?> enviar(EmailForm emailForm){
+    public ResponseEntity<?> enviar(EmailForm emailForm) throws MessagingException {
         log.info("Enviando email");
 
-        SimpleMailMessage mensagem = new SimpleMailMessage();
-        mensagem.setTo(emailForm.getPara());
+        MimeMessage mensagem = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mensagem, true);
 
-        mensagem.setSubject(emailForm.getTitulo());
-        mensagem.setText(emailForm.getConteudo());
+        helper.setTo(emailForm.getPara());
+        helper.setSubject(emailForm.getTitulo());
+        helper.setText(emailForm.getConteudo(), true);
+
         javaMailSender.send(mensagem);
         log.info("Email enviado com sucesso!");
+
 
         return ResponseEntity.ok().build();
     }
