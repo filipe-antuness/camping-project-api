@@ -1,5 +1,7 @@
 package com.api.campingproject.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +33,7 @@ public class UsuarioEntity {
     @Column(name = "email")
     private String email;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 
@@ -43,14 +46,51 @@ public class UsuarioEntity {
     @Column(name = "telefone")
     private String telefone;
 
-    @ManyToMany
-    @JoinColumn(name = "fk_endereco")
-    private List<EnderecoEntity> endereco;
-
     @Column(name = "nivel_acesso")
     private Integer nivelAcesso;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "inscritos")
     @Column(name = "eventos")
     private List<EventosEntity> eventos;
+
+    @Column(name = "cep")
+    private String cep;
+
+    @Column(name = "cidade")
+    private String cidade;
+
+    @Column(name = "estado")
+    private String estado;
+
+    @Column(name = "rua")
+    private String rua;
+
+    @Column(name = "numero")
+    private String numero;
+
+    @Column(name = "bairro")
+    private String bairro;
+
+    @Column(name = "pagamento")
+    private Boolean pagamento;
+
+    public UsuarioEntity(String nome, String sobrenome, String email, Date dataNascimento, String cpf, String senha, String telefone,
+    String cep, String cidade, String estado, String rua, String numero, String bairro, Integer nivelAcesso) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.nivelAcesso = nivelAcesso;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.pagamento = false;
+    }
 }
